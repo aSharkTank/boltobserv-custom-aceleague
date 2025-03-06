@@ -9,7 +9,8 @@
     "url": "https://github.com/boltgolt/boltobserv.git"
   },
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "package-win": "electron-packager . boltobserv --platform=win32 --arch=x64 --out=dist --overwrite --ignore=\\.git --ignore=\"(\\.git|\\.idea|\\.github)\""
   },
   "author": "Boltgolt <hey@boltgolt.nl> (https://boltgolt.nl)",
   "license": "GPL-3.0",

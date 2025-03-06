@@ -6,3 +6,4 @@ keybinds.override.json5
 libraryfolders.vdf
 /.github/
 /.idea/
+/src/dist/

@@ -4,5 +4,9 @@
   "_whatisthis": "Older versions of Boltobserv used this file to check for updates, so it can't be deleted. The real package.json is in /src",
   "dependencies": {
     "deps": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron-builder": "^25.1.8",
+    "electron-packager": "^17.1.2"
   }
 }
