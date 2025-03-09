@@ -25,9 +25,14 @@ function connect() {
     ws.on("message", message => {
         if (message.length < 1) return;
 
+        if (message.indexOf("_is_api_data") !== -1) {
+            return;
+        }
+
         try {
-            patchJSON(message);
-            let data = JSON.parse(message);
+            let patchedMessage = patchJSON(message);
+            let data = JSON.parse(patchedMessage);
+
             handleGameStateData(data);
         } catch (err) {
             if (!(err instanceof SyntaxError)) {
