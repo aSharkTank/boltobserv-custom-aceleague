@@ -36,7 +36,7 @@
 		// Only works on SimpleRadar maps, can either be "never", "buytime" or "always"
 		"showBuyzones": "buytime",
 		// Show Boltobserv, Simple Radar and Lexogrine logos
-		"showLogos": true,
+		"showLogos": false,
 
 		// Show the player name on the dot, options are:
 		// "never"  only show the spec number (observer slot)
