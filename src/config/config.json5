@@ -99,7 +99,7 @@
 
 		// Only apply autozoom if calculated zoom level would be at least this much
 		// In decimals, where 1.2 would mean 20% more zoomed in than the default radar
-		"minZoom": 1.5
+		"minZoom": 1.6
 	},
 
 	// Settings related to the CSGO game

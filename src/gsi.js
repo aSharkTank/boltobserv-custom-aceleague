@@ -50,6 +50,10 @@ function patchJSON(message) {
     return message.replace(/"owner": ([0-9]{10,})/g, '"owner": "$1"')
 }
 
+function isCoach(player) {
+    return !!(player.clan && player.clan.toLowerCase().includes("coach"));
+}
+
 function handleGameStateData(game) {
     if (game.provider) {
         let connObject = {
@@ -57,6 +61,11 @@ function handleGameStateData(game) {
         }
 
         if (game.player) {
+            // We don't want to display coaches in general, also causes issues with the radar
+            if (isCoach(game.player)) {
+                return;
+            }
+            
             if (game.player.activity != "playing") {
                 connObject.player = game.player.name
             }
@@ -93,6 +102,10 @@ function handleGameStateData(game) {
             let isActive = false
             let rawAngle = player.forward.split(", ")
             let ammo = {}
+
+            if (isCoach(game.player)) {
+                return;
+            }
 
             if (parseFloat(rawAngle[0]) > 0) {
                 angle = 90 + parseFloat(rawAngle[1]) * -1 * 90
