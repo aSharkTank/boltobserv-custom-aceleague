@@ -62,12 +62,10 @@ function handleGameStateData(game) {
 
         if (game.player) {
             // We don't want to display coaches in general, also causes issues with the radar
-            if (isCoach(game.player)) {
-                return;
-            }
-            
-            if (game.player.activity != "playing") {
-                connObject.player = game.player.name
+            if (!isCoach(game.player)) {
+                if (game.player.activity !== "playing") {
+                    connObject.player = game.player.name
+                }
             }
         }
 
@@ -92,7 +90,7 @@ function handleGameStateData(game) {
         let playerArr = []
 
         for (let id in game.allplayers) {
-            if (!Number.isInteger(game.allplayers[id].observer_slot)) continue
+            if (!Number.isInteger(game.allplayers[id].observer_slot)) continue;
 
             let player = game.allplayers[id]
             let pos = player.position.split(", ")
@@ -104,7 +102,7 @@ function handleGameStateData(game) {
             let ammo = {}
 
             if (isCoach(game.player)) {
-                return;
+                continue;
             }
 
             if (parseFloat(rawAngle[0]) > 0) {
@@ -116,17 +114,17 @@ function handleGameStateData(game) {
             angle = Math.round(angle * 1000) / 1000
 
             if (game.player) {
-                if (game.player.observer_slot == player.observer_slot) {
+                if (game.player.observer_slot === player.observer_slot) {
                     isActive = true
                 }
             }
 
             for (let id in player.weapons) {
                 // The player has the bomb in their inventory
-                if (player.weapons[id].name == "weapon_c4") {
+                if (player.weapons[id].name === "weapon_c4") {
                     hasBomb = true
                     // The player has the bomb in their hands
-                    bombActive = player.weapons[id].state == "active"
+                    bombActive = player.weapons[id].state === "active"
                 }
 
                 // Save the amma in each gun to know when the player is shooting
@@ -174,7 +172,7 @@ function handleGameStateData(game) {
         for (let nadeID in game.grenades) {
             let nade = game.grenades[nadeID]
 
-            if (nade.type == "smoke" && nade.effecttime != '0.000') {
+            if (nade.type === "smoke" && nade.effecttime !== '0.000') {
                 let pos = nade.position.split(", ")
                 let owner = game.allplayers[nade.owner]
 
@@ -193,7 +191,7 @@ function handleGameStateData(game) {
                 })
             }
 
-            if (nade.type == "flashbang" && parseFloat(nade.lifetime) >= 1.4) {
+            if (nade.type === "flashbang" && parseFloat(nade.lifetime) >= 1.4) {
                 let pos = nade.position.split(", ")
                 grenades.flashbangs.push({
                     id: nadeID,
@@ -203,7 +201,7 @@ function handleGameStateData(game) {
                         z: parseFloat(pos[2])
                     }
                 })
-            } else if (nade.type == "inferno") {
+            } else if (nade.type === "inferno") {
                 if (nade.flames) {
                     let flamesPos = []
                     let flamesNum = Object.values(nade.flames).length
@@ -223,7 +221,7 @@ function handleGameStateData(game) {
                         flamesPosition: flamesPos
                     })
                 }
-            } else if (nade.type != "decoy" && nade.velocity != "0.000, 0.000, 0.000" && (nade.type != "smoke" || nade.effecttime == '0.000')) {
+            } else if (nade.type !== "decoy" && nade.velocity !== "0.000, 0.000, 0.000" && (nade.type !== "smoke" || nade.effecttime == '0.000')) {
                 let pos = nade.position.split(", ")
                 let owner = game.allplayers[nade.owner]
 
