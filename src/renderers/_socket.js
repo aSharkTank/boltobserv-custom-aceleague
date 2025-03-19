@@ -26,7 +26,7 @@ let socket = {
 				attachEvents(websocket)
 
 				// If we're on the waiting screen with a version element, insert the version we got
-				if (document.getElementById("version") && document.getElementById("version").innerHTML == "") {
+				if (document.getElementById("version") && document.getElementById("version").innerHTML === "") {
 					document.getElementById("version").innerHTML = data.version
 				}
 
@@ -102,10 +102,10 @@ socket.element.addEventListener("round", event => {
 	let phase = event.data
 
 	// Abort if there's no change in phase
-	if (global.gamePhase == phase) return
+	if (global.gamePhase === phase) return
 
 	// If the round has ended
-	if ((phase == "freezetime" && global.gamePhase == "over") || (phase == "live" && global.gamePhase == "over")) {
+	if ((phase === "freezetime" && global.gamePhase === "over") || (phase === "live" && global.gamePhase === "over")) {
 		// Emit a custom event
 		let roundend = new Event("roundend")
 		socket.element.dispatchEvent(roundend)

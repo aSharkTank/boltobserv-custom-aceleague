@@ -91,9 +91,11 @@ function handleGameStateData(game) {
         let playerArr = []
 
         for (let id in game.allplayers) {
-            if (!Number.isInteger(game.allplayers[id].observer_slot)) continue;
-
             let player = game.allplayers[id]
+            
+            if (!Number.isInteger(game.allplayers[id].observer_slot)) continue;
+            if (isCoach(player)) continue;
+
             let pos = player.position.split(", ")
             let angle = 0
             let hasBomb = false
@@ -101,10 +103,6 @@ function handleGameStateData(game) {
             let isActive = false
             let rawAngle = player.forward.split(", ")
             let ammo = {}
-
-            if (isCoach(game.player)) {
-                continue;
-            }
 
             if (parseFloat(rawAngle[0]) > 0) {
                 angle = 90 + parseFloat(rawAngle[1]) * -1 * 90
