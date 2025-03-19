@@ -2,15 +2,22 @@
 //
 // Sets player dot style and pushed to player location buffer, but does not set
 // the location.
+function isCoach(player) {
+	if (!player || !player.clan) return false;
+	return player.clan.toLowerCase().includes("coach");
+}
 
 socket.element.addEventListener("players", event => {
 	let data = event.data
 
 	// Abort if no map has been selected yet
-	if (global.currentMap == "none") return
+	if (global.currentMap === "none") return
 
 	// Loop though each player
 	for (let player of data.players) {
+		// Skip coaches
+		if (!player || isCoach(player)) continue;
+		
 		// Get their player element and start building the class
 		let playerDot = global.playerDots[player.num]
 		let playerLabel = global.playerLabels[player.num]

@@ -51,7 +51,8 @@ function patchJSON(message) {
 }
 
 function isCoach(player) {
-    return !!(player.clan && player.clan.toLowerCase().includes("coach"));
+    if (!player || !player.clan) return false;
+    return player.clan.toLowerCase().includes("coach");
 }
 
 function handleGameStateData(game) {
